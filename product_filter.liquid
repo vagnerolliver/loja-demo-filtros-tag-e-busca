@@ -1,0 +1,128 @@
+{% if template == "tag" %}
+  {% aggregations tag:tag.name parent_tag:parent_tag.name %}
+    {% for property in properties %}
+      {% if property.name == "Cor" %}
+        {% assign ordervalues = property.values | sort:'name' %}
+        {% for value in ordervalues %}
+          {% if forloop.first %}
+            <hr>
+            <p class="card-heading">{{ property.name }}</p>
+            <div class="form-group">
+          {% endif %}
+            {% assign encode_url = value.url | replace: '%2C' , ',' %}
+            {% if value.name contains "#" %}
+              <a href="{{ encode_url }}" title="{{ value.name }}" class="btn waves-attach waves-button {% if value.selected %}active{% endif %}" style="background-color:{{ value.name  }}" title="value.name">{% if value.selected %}&nbsp;<i class="fa fa-times"></i>&nbsp;{% else %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}</a>&nbsp;
+            {% else %}
+              <div class="checkbox checkbox-adv">
+                <label for="check-{{ property.name }}-{{ forloop.index }}">
+                  <input class="access-hide" id="check-{{ property.name }}-{{ forloop.index }}" name="input-checkbox" {% if value.selected %}checked{% endif %} onclick="window.location.href='{{ encode_url }}'" type="checkbox">{{ value.name }} ({{ value.count }})
+                  <span class="circle"></span><span class="circle-check"></span><span class="circle-icon icon">done</span>
+                </label>
+              </div>
+            {% endif %}
+          {% if forloop.last %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% assign ordervalues = property.values | sort:'name' %}
+        {% for value in ordervalues %}
+          {% if forloop.first %}
+            <hr>
+            <p class="card-heading">{{ property.name }}</p>
+            <div class="form-group">
+          {% endif %}
+            {% assign encode_url = value.url | replace: '%2C' , ',' %}
+            <div class="checkbox checkbox-adv">
+              <label for="check-{{ typetag.name }}-{{ forloop.index }}">
+                <input class="access-hide" id="check-{{ typetag.name }}-{{ forloop.index }}" name="input-checkbox" {% if value.selected %}checked{% endif %} onclick="window.location.href='{{ encode_url }}'" type="checkbox">{{ value.name }} ({{ value.count }})
+                <span class="circle"></span><span class="circle-check"></span><span class="circle-icon icon">done</span>
+              </label>
+            </div>
+          {% if forloop.last %}
+            </div>
+
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+    {% for typetag in typed_tags %}
+      <hr>
+      <p class="card-heading">{{ typetag.name }}</p>
+      <div class="form-group">
+        {% for value in typetag.values %}
+        {% assign encode_url = value.url | replace: '%2C' , ',' %}
+        <div class="checkbox checkbox-adv">
+          <label for="check-{{ typetag.name }}-{{ forloop.index }}">
+            <input class="access-hide" id="check-{{ typetag.name }}-{{ forloop.index }}" name="input-checkbox" {% if value.selected %}checked{% endif %} onclick="window.location.href='{{ encode_url }}'" type="checkbox">{{ value.name }} ({{ value.count }})
+            <span class="circle"></span><span class="circle-check"></span><span class="circle-icon icon">done</span>
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  {% endaggregations %}
+{% else %}
+  {% aggregations q:params.q  %}
+    {% for property in properties %}
+      {% if property.name == "Cor" %}
+        {% assign ordervalues = property.values | sort:'name' %}
+        {% for value in ordervalues %}
+          {% if forloop.first %}
+            <hr>
+            <p class="card-heading">{{ property.name }}</p>
+            <div class="form-group">
+          {% endif %}
+            {% assign encode_url = value.url | replace: '%2C' , ',' %}
+            {% if value.name contains "#" %}
+              <a href="{{ encode_url }}" title="{{ value.name }}" class="btn waves-attach waves-button {% if value.selected %}active{% endif %}" style="background-color:{{ value.name  }}" title="value.name">{% if value.selected %}&nbsp;<i class="fa fa-times"></i>&nbsp;{% else %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}</a>&nbsp;
+            {% else %}
+              <div class="checkbox checkbox-adv">
+                <label for="check-{{ property.name }}-{{ forloop.index }}">
+                  <input class="access-hide" id="check-{{ property.name }}-{{ forloop.index }}" name="input-checkbox" {% if value.selected %}checked{% endif %} onclick="window.location.href='{{ encode_url }}'" type="checkbox">{{ value.name }} ({{ value.count }})
+                  <span class="circle"></span><span class="circle-check"></span><span class="circle-icon icon">done</span>
+                </label>
+              </div>
+            {% endif %}
+          {% if forloop.last %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% assign ordervalues = property.values | sort:'name' %}
+        {% for value in ordervalues %}
+          {% if forloop.first %}
+            <hr>
+            <p class="card-heading">{{ property.name }}</p>
+            <div class="form-group">
+          {% endif %}
+            {% assign encode_url = value.url | replace: '%2C' , ',' %}
+            <div class="checkbox checkbox-adv">
+              <label for="check-{{ property.name }}-{{ forloop.index }}">
+                <input class="access-hide" id="check-{{ property.name }}-{{ forloop.index }}" name="input-checkbox" {% if value.selected %}checked{% endif %} onclick="window.location.href='{{ encode_url }}'" type="checkbox">{{ value.name }} ({{ value.count }})
+                <span class="circle"></span><span class="circle-check"></span><span class="circle-icon icon">done</span>
+              </label>
+            </div>
+          {% if forloop.last %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+    {% for typetag in typed_tags %}
+      <hr>
+      <p class="card-heading">{{ typetag.name }}</p>
+      <div class="form-group">
+        {% for value in typetag.values %}
+        {% assign encode_url = value.url | replace: '%2C' , ',' %}
+        <div class="checkbox checkbox-adv">
+          <label for="check-{{ typetag.name }}-{{ forloop.index }}">
+            <input class="access-hide" id="check-{{ typetag.name }}-{{ forloop.index }}" name="input-checkbox" {% if value.selected %}checked{% endif %} onclick="window.location.href='{{ encode_url }}'" type="checkbox">{{ value.name }} ({{ value.count }})
+            <span class="circle"></span><span class="circle-check"></span><span class="circle-icon icon">done</span>
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  {% endaggregations %}
+{% endif %}
